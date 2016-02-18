@@ -44,7 +44,7 @@ jQuery(function($) {
 
       var field = this.insertFields(content, assoc, link);
       // bubble up event upto document (through form)
-      field
+      $(field.last())
         .trigger({ type: 'nested:fieldAdded', field: field })
         .trigger({ type: 'nested:fieldAdded:' + assoc, field: field });
       return false;
@@ -55,13 +55,13 @@ jQuery(function($) {
     removeFields: function(e) {
       var $link = $(e.currentTarget),
           assoc = $link.data('association'); // Name of child to be removed
-      
+
       var hiddenField = $link.prev('input[type=hidden]');
       hiddenField.val('1');
-      
+
       var field = $link.closest('.fields');
       field.hide();
-      
+
       field
         .trigger({ type: 'nested:fieldRemoved', field: field })
         .trigger({ type: 'nested:fieldRemoved:' + assoc, field: field });
